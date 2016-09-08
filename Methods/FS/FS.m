@@ -13,12 +13,4 @@ set = cumsum(dimGroup);
 set = set + 1;
 set = [1;set];
 
-% n = length(dimGroup);
-% for i = 1:n
-%     for j = 1:n
-%         if i ~= j
-%         X(set(i):set(i+1)-1, set(j):set(j+1)-1) = myfun1(dist{i}, dist{j}, X(set(i):set(i+1)-1, set(j):set(j+1)-1));
-%         end
-%     end
-% end
 X = myfun1(dist{1}, dist{2}, X(set(1):set(1+1)-1, set(2):set(2+1)-1));
