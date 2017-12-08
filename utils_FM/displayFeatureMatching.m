@@ -10,8 +10,6 @@ if bDisplayLabel == 1
 end
 iptsetpref('ImshowBorder','tight');
 
-
-
 % draw false matches
 curMatchList = cell2mat({cdata.matchInfo(:).match }');
 idxFeat1 = curMatchList(:,1);
@@ -19,24 +17,6 @@ idxFeat2 = curMatchList(:,2);
 feat1 = cdata.view(1).feat(idxFeat1,:);
 feat2 = cdata.view(2).feat(idxFeat2,:);
 feat2(:,1) = feat2(:,1) + size(cdata.view(1).img,2);
-
-% draw points
-for i = 1:size(feat2,1)
-    plot(feat2(i,1),feat2(i,2), 'b.', 'MarkerSize',20);
-end
-for i = 1:size(feat1,1)
-    plot(feat1(i,1),feat1(i,2), 'b.', 'MarkerSize',20);
-end
-
-% draw correct matches
-% % col = hsv(length(X));
-% % for i = 1:length(X)
-% %     if GT(i) == 1
-% %         plot(feat1(i,1),feat1(i,2), '.', 'MarkerSize',50, 'color',col(i,:));
-% %         plot(feat2(i,1),feat2(i,2), '.', 'MarkerSize',50, 'color',col(i,:));
-% %     end
-% % end
-
 for i = 1:length(X)
     if X(i) && GT(i) == 0
         col1 = 'r';

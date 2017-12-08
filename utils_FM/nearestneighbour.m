@@ -94,7 +94,7 @@ function [idx, tri] = nearestneighbour(varargin)
 
 % Copyright 2006 Richard Brown. This code may be freely used and
 % distributed, so long as it maintains this copyright line
-error(nargchk(1, Inf, nargin, 'struct'));
+narginchk(1, Inf);
 
 % Default parameters
 userParams.NumberOfNeighbours = []    ; % Finds one

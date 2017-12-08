@@ -1,11 +1,10 @@
 %% Methods & Settings
 % Script for setting algorithms to run
 %
-% Minsu Cho, Jungmin Lee, and Kyoung Mu Lee, 
-% Reweighted Random Walks for Graph Matching, 
-% Proc. European Conference on Computer Vision (ECCV), 2010
-% http://cv.snu.ac.kr/research/~RRWM/
-% Updated at Nov 1st, 2011
+% Rui Wang, Dong Liang, Wei Zhang, Xiaochun Cao
+% Semantic Correspondence with Geometric Structure Analysis,
+% TIP under submission
+
 
 % You can add an algorithm following the script below
 %nMethods = 1;
@@ -18,13 +17,13 @@
 %methods(nMethods).marker = 'marker';                          % Marker for plots
 
 nMethods = 0;
-%% myfun
+%% Random
 if 1
     nMethods = nMethods + 1;
-    methods(nMethods).fhandle = @myfun;
-    methods(nMethods).variable = {'G1', 'G2', 'X0', 'C', 'temperature'};
+    methods(nMethods).fhandle = @Random;
+    methods(nMethods).variable = {'X0'};
     methods(nMethods).param = {};
-    methods(nMethods).strName = 'random init MatchDR*';
+    methods(nMethods).strName = 'Random';
     methods(nMethods).color = 'r';
     methods(nMethods).lineStyle = '--';
     methods(nMethods).marker = 'o';
@@ -35,7 +34,18 @@ if 1
     methods(nMethods).fhandle = @MatchDR;
     methods(nMethods).variable = {'G1', 'G2', 'X0', 'temperature'};
     methods(nMethods).param = {};
-    methods(nMethods).strName = 'random init MatchDR';
+    methods(nMethods).strName = 'random init DR';
+    methods(nMethods).color = 'r';
+    methods(nMethods).lineStyle = '-';
+    methods(nMethods).marker = 'o';
+end
+%% myfun
+if 1
+    nMethods = nMethods + 1;
+    methods(nMethods).fhandle = @myfun;
+    methods(nMethods).variable = {'G1', 'G2', 'X0', 'C', 'temperature'};
+    methods(nMethods).param = {};
+    methods(nMethods).strName = 'random init FDR';
     methods(nMethods).color = 'r';
     methods(nMethods).lineStyle = '-';
     methods(nMethods).marker = 'o';
@@ -46,7 +56,7 @@ if 1
     methods(nMethods).fhandle = @pairfeat;
     methods(nMethods).variable = {'W', 'stateDims'};
     methods(nMethods).param = {};
-    methods(nMethods).strName = 'Kuhn¨CMunkres';
+    methods(nMethods).strName = 'Kuhn-Munkres';
     methods(nMethods).color = 'b';
     methods(nMethods).lineStyle = '--';
     methods(nMethods).marker = 'p';
@@ -57,7 +67,7 @@ if 1
     methods(nMethods).fhandle = @MatchDR;
     methods(nMethods).variable = {'G1', 'G2', 'X0', 'temperature'};
     methods(nMethods).param = {};
-    methods(nMethods).strName = 'Kuhn¨CMunkres+MatchDR';
+    methods(nMethods).strName = 'Kuhnï¿½CMunkres+MatchDR';
     methods(nMethods).color = 'r';
     methods(nMethods).lineStyle = '-';
     methods(nMethods).marker = 'o';
@@ -68,7 +78,7 @@ if 1
     methods(nMethods).fhandle = @myfun;
     methods(nMethods).variable = {'G1', 'G2', 'X0', 'C', 'temperature'};
     methods(nMethods).param = {};
-    methods(nMethods).strName = 'Kuhn¨CMunkres + MatchDR*';
+    methods(nMethods).strName = 'Kuhn-Munkres + FDR';
     methods(nMethods).color = 'b';
     methods(nMethods).lineStyle = '-';
     methods(nMethods).marker = 'p';
@@ -101,7 +111,7 @@ if 1
     methods(nMethods).fhandle = @myfun;
     methods(nMethods).variable = {'G1', 'G2', 'X0', 'C', 'temperature'};
     methods(nMethods).param = {};
-    methods(nMethods).strName = 'MatchALS + MatchDR*';
+    methods(nMethods).strName = 'MatchALS + FDR';
     methods(nMethods).color = 'r';
     methods(nMethods).lineStyle = '-';
     methods(nMethods).marker = 'o';
@@ -134,7 +144,7 @@ if 1
     methods(nMethods).fhandle = @myfun;
     methods(nMethods).variable = {'G1', 'G2', 'X0', 'C', 'temperature'};
     methods(nMethods).param = {};
-    methods(nMethods).strName = 'SM + MatchDR*';
+    methods(nMethods).strName = 'SM + FDR';
     methods(nMethods).color = 'y';
     methods(nMethods).lineStyle = '-';
     methods(nMethods).marker = 'p';
@@ -167,7 +177,7 @@ if 1
     methods(nMethods).fhandle = @myfun;
     methods(nMethods).variable = {'G1', 'G2', 'X0', 'C', 'temperature'};
     methods(nMethods).param = {};
-    methods(nMethods).strName = 'IPFP + MatchDR*';
+    methods(nMethods).strName = 'IPFP + FDR';
     methods(nMethods).color = 'y';
     methods(nMethods).lineStyle = '-';
     methods(nMethods).marker = 'p';
@@ -179,9 +189,9 @@ if 1
     methods(nMethods).variable = {'affinityMatrix', 'group1', 'group2'};
     methods(nMethods).param = {};
     methods(nMethods).strName = 'RRWM';
-    methods(nMethods).color = 'r';
+    methods(nMethods).color = 'b';
     methods(nMethods).lineStyle = '--';
-    methods(nMethods).marker = 'o';
+    methods(nMethods).marker = 'x';
 end
 %% MatchDR
 if 1
@@ -200,25 +210,25 @@ if 1
     methods(nMethods).fhandle = @myfun;
     methods(nMethods).variable = {'G1', 'G2', 'X0', 'C', 'temperature'};
     methods(nMethods).param = {};
-    methods(nMethods).strName = 'RRWM + MatchDR*';
+    methods(nMethods).strName = 'RRWM + FDR';
     methods(nMethods).color = 'y';
     methods(nMethods).lineStyle = '-';
     methods(nMethods).marker = 'p';
 end
 %% SMCM Suh et al. ECCV 2012
-if 1
+if 0
     nMethods = nMethods + 1;
     methods(nMethods).fhandle = @SMCM;
     methods(nMethods).variable = {'affinityMatrix', 'group1', 'group2'};
     methods(nMethods).param = {'nParticles', 2000, 'tau', 2};
     methods(nMethods).postProcess = 'none';
     methods(nMethods).strName = 'SMCM';
-    methods(nMethods).color = 'r';
+    methods(nMethods).color = 'k';
     methods(nMethods).lineStyle = '-';
-    methods(nMethods).marker = 'o';
+    methods(nMethods).marker = 'p';
 end
 %% MatchDR
-if 1
+if 0
     nMethods = nMethods + 1;
     methods(nMethods).fhandle = @MatchDR;
     methods(nMethods).variable = {'G1', 'G2', 'X0', 'temperature'};
@@ -229,12 +239,12 @@ if 1
     methods(nMethods).marker = 'o';
 end
 %% myfun
-if 1
+if 0
     nMethods = nMethods + 1;
     methods(nMethods).fhandle = @myfun;
     methods(nMethods).variable = {'G1', 'G2', 'X0', 'C', 'temperature'};
     methods(nMethods).param = {};
-    methods(nMethods).strName = 'SMCM + MatchDR*';
+    methods(nMethods).strName = 'SMCM + FDR';
     methods(nMethods).color = 'y';
     methods(nMethods).lineStyle = '-';
     methods(nMethods).marker = 'p';
@@ -248,7 +258,7 @@ if 1
     methods(nMethods).strName = 'MPM';
     methods(nMethods).color = 'r';
     methods(nMethods).lineStyle = '-';
-    methods(nMethods).marker = 'o';
+    methods(nMethods).marker = 'p';
 end
 %% MatchDR
 if 1
@@ -267,7 +277,7 @@ if 1
     methods(nMethods).fhandle = @myfun;
     methods(nMethods).variable = {'G1', 'G2', 'X0', 'C', 'temperature'};
     methods(nMethods).param = {};
-    methods(nMethods).strName = 'MPM + MatchDR*';
+    methods(nMethods).strName = 'MPM + FDR';
     methods(nMethods).color = 'y';
     methods(nMethods).lineStyle = '-';
     methods(nMethods).marker = 'p';
@@ -301,8 +311,74 @@ if 1
     methods(nMethods).fhandle = @myfun;
     methods(nMethods).variable = {'G1', 'G2', 'X0', 'C', 'temperature'};
     methods(nMethods).param = {};
-    methods(nMethods).strName = 'SMCP + MatchDR*';
+    methods(nMethods).strName = 'SMCP + FDR';
     methods(nMethods).color = 'y';
+    methods(nMethods).lineStyle = '-';
+    methods(nMethods).marker = 'p';
+end
+%% fgmU
+if 0
+    nMethods = nMethods + 1;
+    methods(nMethods).fhandle = @fgmU;
+    methods(nMethods).variable = {'KP', 'KQ', 'Ct', 'gphs', 'parFGM_U'};
+    methods(nMethods).param = {};
+    methods(nMethods).strName = 'fgmU';
+    methods(nMethods).color = 'k';
+    methods(nMethods).lineStyle = '--';
+    methods(nMethods).marker = 'o';
+end
+%% MatchDR
+if 0
+    nMethods = nMethods + 1;
+    methods(nMethods).fhandle = @MatchDR;
+    methods(nMethods).variable = {'G1', 'G2', 'X0', 'temperature'};
+    methods(nMethods).param = {};
+    methods(nMethods).strName = 'fgmU + MatchDR';
+    methods(nMethods).color = 'r';
+    methods(nMethods).lineStyle = '-';
+    methods(nMethods).marker = 'o';
+end
+%% myfun
+if 0
+    nMethods = nMethods + 1;
+    methods(nMethods).fhandle = @myfun;
+    methods(nMethods).variable = {'G1', 'G2', 'X0', 'C', 'temperature'};
+    methods(nMethods).param = {};
+    methods(nMethods).strName = 'fgmU + FDR';
+    methods(nMethods).color = 'k';
+    methods(nMethods).lineStyle = '-';
+    methods(nMethods).marker = 'o';
+end
+%% fgmD
+if 0
+    nMethods = nMethods + 1;
+    methods(nMethods).fhandle = @fgmD;
+    methods(nMethods).variable = {'KP', 'KQD', 'Ct', 'gphDs', 'parFGM_G'};
+    methods(nMethods).param = {};
+    methods(nMethods).strName = 'fgmG';
+    methods(nMethods).color = 'm';
+    methods(nMethods).lineStyle = '--';
+    methods(nMethods).marker = 'p';
+end
+%% MatchDR
+if 0
+    nMethods = nMethods + 1;
+    methods(nMethods).fhandle = @MatchDR;
+    methods(nMethods).variable = {'G1', 'G2', 'X0', 'temperature'};
+    methods(nMethods).param = {};
+    methods(nMethods).strName = 'fgmD + MatchDR';
+    methods(nMethods).color = 'r';
+    methods(nMethods).lineStyle = '-';
+    methods(nMethods).marker = 'o';
+end
+%% myfun
+if 0
+    nMethods = nMethods + 1;
+    methods(nMethods).fhandle = @myfun;
+    methods(nMethods).variable = {'G1', 'G2', 'X0', 'C', 'temperature'};
+    methods(nMethods).param = {};
+    methods(nMethods).strName = 'fgmD + FDR';
+    methods(nMethods).color = 'm';
     methods(nMethods).lineStyle = '-';
     methods(nMethods).marker = 'p';
 end
