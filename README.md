@@ -1,47 +1,46 @@
-MATLAB demo code of Semantic Correspondence with Geometric Structure Analysis
+# MatchDR-_release_v1
 
-The test environment of the codes is Matlab R2015b Windows 8.1. We cannot guarantee the normal operation in other encironments. 
+Image Matching MATLAB demo code of Match Distance Ratio* (MatchDR*)
 
-Rui Wang, Dong Liang, Wei Zhang, Xiaochun Cao
-Semantic Correspondence with Geometric Structure Analysis,
-TIP under submission
+Dong Liang, Wei Zhang 
+Reweighted Random Walks for Graph Matching, 
+Proc. European Conference on Computer Vision (ECCV), 2010
+http://cv.snu.ac.kr/research/~RRWM/
 
-written by Dong Liang, 2017
+Please cite our work if you find this code useful in your research. 
 
-* Update
-	1. The code was updated to run on linux.
-	    Note that the algorithm SMCM under comparison is not avaliable in linux as the auther only release their work in a .mexw way. However, you can test it in windows.
-    2. The method FGM is off in the default setting. You can turn it on in setMethods.m if your linux support libstdc++.
+written by Minsu Cho & Jungmin Lee, 2010, Seoul National University, Korea
+http://cv.snu.ac.kr/~minsucho/
+http://cv.snu.ac.kr/~jungminlee/
 
-Date: 25/09/2017
-Version: 0.2
+===================================================================================
 
 1. Overview
 
-run.m   : main script for feature matching demo
-dataset : there is an example mat data in matchData4, you can replace it with data provided.
+This additional code provides the image matching demo in our paper.
+The data of 30 image pairs used in our paper are contained in 'matchData' folder.
+copy all codes and folders into the root folder of 'RRWM_release_v1.2'
 
-If you want to add your own algorithm for comparison, three steps are required:
-1. Create 'YOUR_ALGORITHM_NAME' folder in 'Methods' folder. Then put your code in it.
-2. Add the folder in the script 'setPath.m' so that your method can be called.
-3. Modify 'setMethods.m' for your method. Note that you should follow the 'methods' structure. 
+'do_FeatureMatching_demo.m' loads precomputed data (image features, affinity matrix, 
+and ground truths) and runs graph matching algorithms on each image pair. 
+To visualize image matching results, set bDisplayMatching = 1 in 'do_FeatureMatching_demo.m'
+
+** Since this code uses a different way of measuring the matching accuracy, 
+the overall accuracy values would be higher than those of the paper.
+For flexible evaluation of matching accuracy, both ground truths and detected matches
+are extrapolated among candidate matches, and the accuracy are measured based on them.
+The papameter extrapolate_thres (pixels) in 'do_FeatureMatching_demo.m' determines the distance.
+(i.e. the higher extrapolate_thres means further extrapolation and more generous true/false decision,
+whereas the lower extrapolate_thres means nearer extrapolation and more strict true/false decision)
+
+Based on this code with the data files, any algorithm can be tested on the dataset.
+If you want to add your own algorithm for comparison, three steps are required.
+1) Create 'YOUR_ALGORITHM_NAME' folder in 'Methods' folder. Then put your code in it.
+2) Add the path to 'setPath.m' so that your method can be called.
+3) Add the configuration of your method to 'setMethods.m'
 
 
-2. References
+2. References 
 
-Thanks for the framwork of RRWM. (http://cv.snu.ac.kr/research/~RRWM/)
-
-Reweighted Random Walks Matching by Cho et al. ECCV2010
-
-Spectral Matching by Leordeanu and Hebert. ICCV2005
-
-Multi-image Matching via Fast Alternating Minimization. ICCV2015
-
-Subgraph matching using compactness prior for robust feature correspondence by Suh et al. ECCV2015
-
-Sequential Monte Carlo Matching by Suh et al. ECCV2012
-
-Max-Pooling Matching by Cho et al. CVPR2014
-
-Integer Projected Fixed Point Method by Leordeanu et al. NIPS 200
-
+This MATLAB code includes the NEARESTNEIGHBOUR function written by  Richard Brown:
+http://www.mathworks.com/matlabcentral/fileexchange/12574-nearestneighbour-m

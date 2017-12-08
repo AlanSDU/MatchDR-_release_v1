@@ -14,6 +14,7 @@ for i = 1:n
     R = sum(Theta_tan<pi/4)-sum(Theta_tan<-pi/4);
     U = sum(Theta_tan<3*pi/4)-sum(Theta_tan<pi/4);
     D = sum(Theta_tan<-pi/4)-sum(Theta_tan<-3*pi/4);
+%     disp(L+R+U+D)
     pX = L - R;pY = U - D;
     [Rho_par, Theta_par] = rec2pol([pX, pY]);
     Coo = [X(i) - mean(X), Y(i) - mean(Y)];
@@ -21,9 +22,10 @@ for i = 1:n
     
     [Rho_tan, Theta_tan] = rec2pol(Coo);
     Theta = Theta_tan +pi/2 - Theta_par;
-    C(i) = sqrt(pX^2 + pY^2)*cos(Theta);
+    C(i) = sign(sqrt(pX^2 + pY^2)*cos(Theta));
     Par(i, :) = [Rho_par, Theta_par];
     Tan(i, :) = [Rho_tan+pi/2, Theta_tan+pi/2];
+%     disp([Theta, cos(Theta)]);
 end
 end
 

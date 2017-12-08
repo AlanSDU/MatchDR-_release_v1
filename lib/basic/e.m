@@ -1,4 +1,0 @@
-function e
-% Exist.
-
-exit;
